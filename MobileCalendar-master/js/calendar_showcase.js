@@ -64,3 +64,36 @@ var customBiz = {
 
 // 初始化
 customBiz.init();
+
+
+$(".certain").click(function(){
+	if (globalDateArry.length == 0) {
+		alert('请至少添加一个日期');
+		return;
+	}
+	
+	//先清空当前页面
+	$("html").html("");
+//	$("html").html(htmlStr);
+
+	console.log(htmlStr);
+
+	$("html").append(htmlStr);
+	
+	var str = globalDateArry.join(',');
+	$('#text-have-choose-date').html(str);
+	
+//	$.ajax({
+//		type:"get",
+//		url:"./ticket.html",
+//		async:true,
+//		success: function(data){
+//			$("html").append($(data));	
+//			
+//			var str = globalDateArry.join(',');
+//			$('#text-have-choose-date').html(str);
+//		}
+//	});
+	
+	
+})

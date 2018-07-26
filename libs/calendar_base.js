@@ -849,7 +849,7 @@
 					// 刷新
 					self.refresh();
 					
-					//清空已选日期数组
+					//清空已选日期数组 add by chenlian on 2018-07-26
 					globalDateArry = [];
 
 				});

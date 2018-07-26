@@ -2,74 +2,7 @@
 var styleBlock = "display: block; ";  //原有的属性还存在
 var styleNone =  "display: none; ";
 var seatArry = [];
-
-
-$("#chooseDate").click(function(){
-	//先清空当前页面
-	$("html").html("");
-	
-	$.ajax({
-		type:"get",
-		url:"./MobileCalendar-master/chooseDate.html",
-		async:true,
-		success: function(data){
-			$("html").append($(data));	
-		}
-	});
-})
-
-
-//选择乘车人
-$("#button-add-passenger").unbind("click").bind("click",function(){
-	var chooseSeat = document.getElementById("button-add-passenger");
-	var passengerName = $("#input-passenger").val();
-	if (passengerName==null || passengerName=="") {
-		alert("乘车人不能为空")
-		return;
-	}
-	
-	var orginalName = $("#text-have-choose-passenger").html();
-	var name ;
-	if (orginalName!=null && orginalName!="" && orginalName!="无") {
-		name = orginalName + "," + passengerName;
-	}
-	
-	if (name!=null && name!="") {
-		$("#text-have-choose-passenger").html(name)
-	}else{
-		$("#text-have-choose-passenger").html(passengerName)
-	}
-	
-	//清空已输入内容
-	$("#input-passenger").val("");
-	
-});
-
-
-//选择车次
-$("#button-add-train").unbind("click").bind("click",function(){
-	var passengerName = $("#input-train").val();
-	if (passengerName==null || passengerName=="") {
-		alert("车次不能为空")
-		return;
-	}
-	
-	var orginalName = $("#text-have-choose-train").html();
-	var name ;
-	if (orginalName!=null && orginalName!="" && orginalName!="无") {
-		name = orginalName + "," + passengerName;
-	}
-	
-	if (name!=null && name!="") {
-		$("#text-have-choose-train").html(name)
-	}else{
-		$("#text-have-choose-train").html(passengerName)
-	}
-	
-	//清空已输入内容
-	$("#input-train").val("");
-	
-});
+var globalDateArry = [];
 
 
 //选择座位
@@ -218,3 +151,171 @@ $("#item-add-hand").unbind("click").bind("click",function(){
 		seatArry.push("硬卧");
 	}
 });
+
+
+$(".sumbit").unbind("click").bind("click",function(){
+	alert('sumbit');
+	
+	var inviteCode = $('#inviteCode').val();
+	var phoneNum = $('#phoneNum').val();
+	var account12306 = $('#12306Account').val();
+	var password12306 = $('#12306Password').val();
+	var startCity = $('#startCity').val();
+	var endCity = $('#endCity').val();
+	var passengers = $('#input-passenger').val();
+	var trainNums = $('#input-train').val();
+	var seats = $('#text-have-choose-seat').val() ;
+	var dates = $('#text-have-choose-date').val();
+	
+	if (inviteCode==null || inviteCode=='') {
+		alert('请输入邀请码');
+		return;
+	}
+	
+	if (phoneNum==null || phoneNum=='') {
+		alert('请输入手机号');
+		return;
+	}
+	
+	if (account12306==null || account12306=='') {
+		alert('请输入12306帐号');
+		return;
+	}
+	
+	if (password12306==null || password12306=='') {
+		alert('请输入12306密码');
+		return;
+	}
+	
+	if (startCity==null || startCity=='') {
+		alert('请输入出发城市');
+	}
+	
+	if (endCity==null || endCity=='') {
+		alert('请输入到达城市');
+		return;
+	}
+	
+	if (passengers==null || passengers=='') {
+		alert('请输入乘车人');
+		return;
+	}
+	
+	if (trainNums==null || trainNums=='') {
+		alert('请输入车次');
+		return;
+	}
+	
+	if (seats==null || seats=='') {
+		alert('请选择座位');
+		return;
+	}
+	
+	if (dates==null || dates=='') {
+		alert('请选择日期');
+		return;
+	}
+	
+	alert('sumbit sucess');
+	
+});
+
+
+
+
+
+"use strict";
+
+var customBiz = {
+	init: function() {
+		var self = this;
+		// 初始化日历
+
+		var calendar = new Calendar({
+			// swiper滑动容器
+			container: "#calendar",
+			// 上一月节点
+			pre: ".pre",
+			// 下一月节点
+			next: ".next",
+			// 回到今天
+			backToToday: ".backToday",
+			// 业务数据改变
+			dataRequest: function(currdate, callback, _this) {
+				// 无日程安排
+				var data = [{
+					"date": "2018-04-18"
+				}, {
+					"date": "2018-04-17"
+				}, {
+					"date": "2018-04-16"
+				}];
+				callback && callback(data);
+			},
+			// 点击日期事件
+			onItemClick: function(item) {
+				var defaultDate = item.date;
+				// 设置标题
+				setTitle(defaultDate);
+			},
+			// 滑动回调
+			swipeCallback: function(item) {
+				var defaultDate = item.date;
+				// 设置标题
+				setTitle(defaultDate);
+			},
+			// 调试
+			isDebug: false
+		});
+		// 设置标题
+		var titleNode = document.querySelector('.mid span');
+
+		function setTitle(date) {
+			//以年月显示，changed by chenlian on 2018-07-25
+			var strArry = date.split('-');
+			var str = strArry[0] + '年' + strArry[1] + '月';
+			
+			titleNode.innerText = str;
+		}
+		
+		return calendar;
+
+	}
+}
+
+// 初始化
+var calendar = customBiz.init();
+
+
+$("#chooseDate").click(function(){
+	//清空已选数组
+	globalDateArry = [];
+	
+	var contentDate = document.getElementsByClassName("content-calander");
+	console.log(contentDate);
+	contentDate[0].style.cssText = styleBlock;
+	
+	var background = document.getElementById("background");
+	console.log(background);
+	background.style.cssText = styleBlock;
+	
+	//重新刷新，修复不显示当前月bug
+	calendar.refresh();
+	
+})
+
+$(".certain").click(function(){
+	if (globalDateArry.length == 0) {
+		alert('请至少添加一个日期');
+		return;
+	}
+	
+	var contentDate = document.getElementsByClassName("content-calander");
+	contentDate[0].style.cssText = styleNone;
+	
+	var background = document.getElementById("background");
+	background.style.cssText = styleNone;
+	
+	var str = globalDateArry.join(',');
+	$('#text-have-choose-date').html(str);
+})
