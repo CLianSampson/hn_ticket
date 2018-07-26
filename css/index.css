@@ -1,0 +1,12 @@
+
+html{
+	font-size: 20px;
+	/*我们在 iphone6 上使用 1rem = 20px 来换算。
+	 * 小于 375px 的设备上不做缩小处理，对 大于 375px 宽度的设备进行等比缩放*/
+}
+
+body{
+	margin: 0;
+	padding: 0;
+}
+

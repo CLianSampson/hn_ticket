@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+	<script>
+			var globalDateArry = [];
+			
+			$().ready(function(){
+				$.ajax({
+					type:"get",
+					url:"./ticket.html",
+					async:true,
+					success: function(data){
+						//console.log(data);
+						$("html").append($(data));
+					}
+				});
+				
+			})
+			
+			function writeObj(obj){ 
+				var description = ""; 
+				for(var i in obj){ 
+					var property=obj[i]; 
+					description+=i+" = "+property+"\n"; 
+				} 
+				alert(description); 
+			}
+	</script>
+	
+</html>
+
+<!--
+<div class="em-calendar-item  em-calendar-active  isforbid{{isforbid}}" date="{{date}}">
+	<span class="day">{{day}}</span>
+	<p class="lunar">今天</p>
+	<span class="dot dot-type1"></span>
+</div>
+
+<div class="em-calendar-container">
+	<div class="em-week">							
+		<span class="em-red">日</span>							
+		<span>一</span>							
+		<span>二</span>							
+		<span>三</span>							
+		<span>四</span>							
+		<span>五</span>							
+		<span class="em-red">六</span>						
+	</div>
+	<div class="swiper-container">		
+		<div class="swiper-wrapper">
+			
+		</div>							
+	</div>							
+</div>
+
+<div class="em-calendar-item  isforbid0" date="2018-05-27">
+	<span class="day">27</span>
+	<p class="lunar">十三</p>
+</div>
+<div class="em-calendar-item  isforbid0" date="2018-05-28">
+	<span class="day">28</span>
+	<p class="lunar">十四</p>
+</div>
+<div class="em-calendar-item  isforbid0" date="2018-05-29">
+	<span class="day">29</span>
+	<p class="lunar">十五</p>
+</div>
+-->
