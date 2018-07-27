@@ -224,14 +224,23 @@ button{
 
 
 /*以下为日历*/
+.content-calander-parent{
+	display: none;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	/*background: red;*/
+}
+
 .content-calander{
 	display: none;
-	position: fixed;
+	position: relative;
 	z-index: 8;
 	width: 100%;
 	/*height: 200%;*/
 	top: 2rem;
-	bottom: 0%; /*fixed 时应该加上*/
+	/*bottom: 0%; /*fixed 时应该加上*/*/
 	/*background: black;*/
 }
 

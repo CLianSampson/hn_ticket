@@ -291,9 +291,12 @@ $("#chooseDate").click(function(){
 	//清空已选数组
 	globalDateArry = [];
 	
+	var contentDateParent = document.getElementsByClassName("content-calander-parent");
+	contentDateParent[0].style.cssText = styleBlock;
+	
 	var contentDate = document.getElementsByClassName("content-calander");
-	console.log(contentDate);
 	contentDate[0].style.cssText = styleBlock;
+	
 	
 	var background = document.getElementById("background");
 	console.log(background);
@@ -309,6 +312,9 @@ $(".certain").click(function(){
 		alert('请至少添加一个日期');
 		return;
 	}
+	
+	var contentDateParent = document.getElementsByClassName("content-calander-parent");
+	contentDateParent[0].style.cssText = styleNone;
 	
 	var contentDate = document.getElementsByClassName("content-calander");
 	contentDate[0].style.cssText = styleNone;
